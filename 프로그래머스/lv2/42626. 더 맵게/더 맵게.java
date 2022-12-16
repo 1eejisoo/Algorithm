@@ -24,7 +24,7 @@ class Solution {
         while (!isOverK(pq, K)){
             if(pq.size() < 2) return -1;
             
-            data = pq.poll() + pq.poll() * 2;
+            data = pq.remove() + pq.remove() * 2;
             pq.add(data);
             answer += 1;
         }
