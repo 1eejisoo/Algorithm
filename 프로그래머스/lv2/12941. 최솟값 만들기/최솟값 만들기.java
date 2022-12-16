@@ -1,22 +1,17 @@
 import java.util.Arrays;
-import java.util.Collections;
 
 class Solution
 {
     public int solution(int []A, int []B)
     {
-        Integer[] arr = new Integer[B.length];
         int answer = 0;
-        
-
-        for (int i = 0; i < B.length; i++)
-            arr[i] = B[i];
+        int index = B.length - 1;
 
         Arrays.sort(A);
-        Arrays.sort(arr, Collections.reverseOrder());
+        Arrays.sort(B);
 
-        for (int i = 0; i < A.length; i++) {
-            answer += A[i] * arr[i];
+        for (int data : A) {
+            answer += data * B[index--];
         }
 
         return answer;
