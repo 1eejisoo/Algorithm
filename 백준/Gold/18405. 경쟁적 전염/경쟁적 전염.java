@@ -6,10 +6,14 @@ import java.util.*;
 class Node {
     int x;
     int y;
+    int virus;
+    int time;
 
-    Node(int x, int y) {
+    Node(int x, int y, int virus, int time) {
         this.x = x;
         this.y = y;
+        this.virus = virus;
+        this.time = time;
     }
 
     int getX() {
@@ -19,6 +23,14 @@ class Node {
     int getY() {
         return y;
     }
+
+    int getVirus() {
+        return virus;
+    }
+
+    int getTime() {
+        return time;
+    }
 }
 
 public class Main {
@@ -27,16 +39,20 @@ public class Main {
     static int[][] board;
     static int[] dx = {1, 0, -1, 0};
     static int[] dy = {0, 1, 0, -1};
-    static HashMap<Integer, Queue<Node>> map = new HashMap<>();
+    static List<Node> virus_list = new ArrayList<>();
+    static Queue<Node> q = new LinkedList<>();
 
-    public static void bfs(Queue<Node> q, int number) {
-        int x, y;
-        Queue<Node> offer_q = new LinkedList<>();
+    public static void bfs() {
+        int x, y, virus, time;
 
         while (!q.isEmpty()) {
             Node node = q.poll();
             x = node.getX();
             y = node.getY();
+            virus = node.getVirus();
+            time = node.getTime();
+
+            if (time == s) return;
 
             for (int dir = 0; dir < 4; dir++) {
                 int nx = x + dx[dir];
@@ -45,12 +61,9 @@ public class Main {
                 if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
                 if (board[nx][ny] != 0) continue;
 
-                board[nx][ny] = number;
-                offer_q.offer(new Node(nx, ny));
+                board[nx][ny] = virus;
+                q.offer(new Node(nx, ny, virus, time + 1));
             }
-        }
-        while(!offer_q.isEmpty()) {
-            q.offer(offer_q.poll());
         }
     }
 
@@ -67,10 +80,7 @@ public class Main {
             for (int j = 0; j < n; j++) {
                 board[i][j] = Integer.parseInt(st.nextToken());
                 if (board[i][j] > 0) {
-                    if (!map.containsKey(board[i][j])) {
-                        map.put(board[i][j], new LinkedList<>());
-                    }
-                    map.get(board[i][j]).offer(new Node(i, j));
+                    virus_list.add(new Node(i, j, board[i][j], 0));
                 }
             }
         }
@@ -80,14 +90,10 @@ public class Main {
         x = Integer.parseInt(st.nextToken()) - 1;
         y = Integer.parseInt(st.nextToken()) - 1;
 
-        for (int i = 0; i < s; i++) {
-            for (int j = 1; j <= k; j++) {
-                if (map.get(j) == null) continue;
-                bfs(map.get(j), j);
-            }
-        }
+        virus_list.sort(Comparator.comparingInt(Node::getVirus));
+        q.addAll(virus_list);
+        bfs();
 
-        if (board[x][y] == 0) System.out.println(0);
-        else System.out.println(board[x][y]);
+        System.out.println(board[x][y]);
     }
 }
