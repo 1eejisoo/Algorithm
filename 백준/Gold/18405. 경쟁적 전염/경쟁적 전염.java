@@ -31,7 +31,7 @@ public class Main {
 
     public static void bfs(Queue<Node> q, int number) {
         int x, y;
-        List<Node> offer_list = new ArrayList<>();
+        Queue<Node> offer_q = new LinkedList<>();
 
         while (!q.isEmpty()) {
             Node node = q.poll();
@@ -46,11 +46,12 @@ public class Main {
                 if (board[nx][ny] != 0) continue;
 
                 board[nx][ny] = number;
-                offer_list.add(new Node(nx, ny));
+                offer_q.offer(new Node(nx, ny));
             }
         }
-        for (Node node : offer_list)
-            q.offer(node);
+        while(!offer_q.isEmpty()) {
+            q.offer(offer_q.poll());
+        }
     }
 
 
