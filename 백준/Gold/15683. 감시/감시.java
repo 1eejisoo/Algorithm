@@ -73,9 +73,7 @@ public class Main {
         // cf) 1 << 3은 2^3
         for (int tmp = 0; tmp < (1 << (2 * cctv.size())); tmp++) {
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    board2[i][j] = board1[i][j];
-                }
+                if (m >= 0) System.arraycopy(board1[i], 0, board2[i], 0, m);
             }
 
             int brute = tmp;
