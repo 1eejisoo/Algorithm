@@ -6,18 +6,27 @@ import java.util.*;
 public class Main {
     static int n, m, v;
     static boolean[] visited;
-    static List<Integer>[] adj;
+    static List<Integer>[] adj;    // 방법 1, 2와 다른 부분
 
-    public static void dfs(int cur) {
-        visited[cur] = true;
+    // 비재귀 DFS
+    public static void dfs() {
+        visited = new boolean[n + 1];
+        Stack<Integer> s = new Stack<>();
+        s.push(v);
+        while(!s.isEmpty()) {
+            int cur = s.pop();
+            if (visited[cur]) continue;
+            visited[cur] = true;
+            System.out.print(cur + " ");
 
-        System.out.print(cur + " ");
-        for (Integer a : adj[cur]) {
-            if (visited[a]) continue;
-            dfs(a);
+            // 스택의 특성상 정점을 역순으로 넣어야 한다.
+            for (int i = 0; i < adj[cur].size(); i++) {
+                int nxt = adj[cur].get(adj[cur].size() - 1 - i);
+                if (visited[nxt]) continue;
+                s.push(nxt);
+            }
         }
     }
-
 
     public static void bfs() {
         visited = new boolean[n + 1];
@@ -45,8 +54,8 @@ public class Main {
         v = Integer.parseInt(st.nextToken());
         int a, b;
 
+        // 방법 1, 2와 다른 부분
         adj = new ArrayList[n + 1];
-
         for (int i = 0; i < n + 1; i++) {
             adj[i] = new ArrayList<>();
         }
@@ -59,12 +68,13 @@ public class Main {
             adj[b].add(a);
         }
 
+        // 작은 순 정렬
         for (int i = 1; i <= n; i++) {
             Collections.sort(adj[i]);
         }
 
         visited = new boolean[n + 1];
-        dfs(v);
+        dfs();
         System.out.println();
         bfs();
     }
