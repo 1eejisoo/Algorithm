@@ -6,13 +6,13 @@ import java.util.*;
 public class Main {
     static int n, m, v;
     static boolean[] visited;
-    static ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+    static List<Integer>[] adj;
 
     public static void dfs(int cur) {
         visited[cur] = true;
 
         System.out.print(cur + " ");
-        for (Integer a : adj.get(cur)) {
+        for (Integer a : adj[cur]) {
             if (visited[a]) continue;
             dfs(a);
         }
@@ -29,7 +29,7 @@ public class Main {
         while (!q.isEmpty()) {
             int cur = q.poll();
             System.out.print(cur + " ");
-            for (Integer a : adj.get(cur)) {
+            for (Integer a : adj[cur]) {
                 if (visited[a]) continue;
                 q.offer(a);
                 visited[a] = true;
@@ -45,22 +45,24 @@ public class Main {
         v = Integer.parseInt(st.nextToken());
         int a, b;
 
+        adj = new ArrayList[n + 1];
+
         for (int i = 0; i < n + 1; i++) {
-            adj.add(new ArrayList<>());
+            adj[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine(), " ");
             a = Integer.parseInt(st.nextToken());
             b = Integer.parseInt(st.nextToken());
-            adj.get(a).add(b);
-            adj.get(b).add(a);
+            adj[a].add(b);
+            adj[b].add(a);
         }
 
         for (int i = 1; i <= n; i++) {
-            Collections.sort(adj.get(i));
+            Collections.sort(adj[i]);
         }
-        
+
         visited = new boolean[n + 1];
         dfs(v);
         System.out.println();
