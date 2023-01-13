@@ -8,11 +8,12 @@ public class Main {
     static List<Integer>[] adj;
     static int[] deg;
     static Queue<Integer> q = new LinkedList<>();
+    static StringBuilder sb = new StringBuilder();
 
     static void topological_sort() {
         while (!q.isEmpty()) {
             int cur = q.poll();
-            System.out.print(cur + " ");
+            sb.append(cur).append(" ");
             for (int nxt : adj[cur]) {
                 deg[nxt]--;
                 if (deg[nxt] == 0) q.offer(nxt);
@@ -47,5 +48,6 @@ public class Main {
         }
 
         topological_sort();
+        System.out.println(sb);
     }
 }
