@@ -19,6 +19,7 @@ class CharacterTypes {
 }
 
 class Solution {
+    
     static int[] score = {0, 3, 2, 1, 0, 1, 2, 3};
 
     public void addScore(CharacterTypes ct, char[] character, int choice) {
@@ -45,7 +46,6 @@ class Solution {
         for (int i = 0; i < choices.length; i++) {
             char[] character = survey[i].toCharArray();
             int choice = choices[i];
-            CharacterTypes ct = null;
 
             for (CharacterTypes c : characterList) {
                 if (c.types.containsKey(character[0]) || c.types.containsKey(character[1])) {
