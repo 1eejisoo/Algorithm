@@ -1,10 +1,10 @@
 # [level 1] 신고 결과 받기 - 92334 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92334) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92334#) 
 
 ### 성능 요약
 
-메모리: 74.7 MB, 시간: 0.39 ms
+메모리: 77.1 MB, 시간: 0.28 ms
 
 ### 구분
 
