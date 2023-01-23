@@ -21,13 +21,15 @@ public class Main {
             A[i] = Integer.parseInt(st.nextToken());
         }
 
-        int sum , end ;
-        for (int start = 0; start < n; start++) {
-            sum = A[start];
-            end = start;
-            while (end < n && sum < m) {
+        int start = 0, end = 0, sum = 0;
+        while (start < n) {
+            if (sum > m || end == n) {
+                sum -= A[start];
+                start++;
+            }
+            else {
+                sum += A[end];
                 end++;
-                if (end != n) sum += A[end];
             }
             if (sum == m) {
                 result++;
