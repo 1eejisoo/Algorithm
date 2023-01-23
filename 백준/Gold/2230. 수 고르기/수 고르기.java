@@ -9,7 +9,6 @@ public class Main {
     static int[] A;
 
     static int min = Integer.MAX_VALUE;
-    static TreeSet<Integer> set = new TreeSet<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,11 +22,20 @@ public class Main {
         }
         Arrays.sort(A);
 
-        int end = 0;
-        for (int start = 0; start < n; start++) {
-            while(end < n && A[end] - A[start] < m) end++;
-            if (end == n) break;
-            min = Math.min(min, A[end] - A[start]);
+        int start = 0, end = 0;
+        while (end < n) {
+            int cur = A[end] - A[start];
+
+            if (cur < m) {
+                end++;
+                continue;
+            }
+            if (cur == m) {
+                min = cur;
+                break;
+            }
+            min = Math.min(min, cur);
+            start++;
         }
         System.out.println(min);
     }
