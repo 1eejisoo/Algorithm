@@ -6,8 +6,7 @@ import java.util.*;
 public class Main {
 
     static int n;
-    static HashMap<String, Boolean> log = new HashMap<>();
-    static List<String> results = new ArrayList<>();
+    static TreeSet<String> log = new TreeSet<>(Comparator.reverseOrder());
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,18 +19,12 @@ public class Main {
             String state = st.nextToken();
 
             if (state.equals("enter")) {
-                log.put(name, true);
+                log.add(name);
             } else {
-                log.put(name, false);
+                log.remove(name);
             }
         }
-        for (String key : log.keySet()) {
-            if (log.get(key))  results.add(key);
-        }
-        
-        results.sort(Comparator.reverseOrder());
-        
-        for (String name : results)
+        for (String name : log)
             System.out.println(name);
     }
 }
