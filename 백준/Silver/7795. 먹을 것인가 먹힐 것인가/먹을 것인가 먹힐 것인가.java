@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
         t = Integer.parseInt(br.readLine());
 
@@ -46,7 +47,8 @@ public class Main {
                     en1--;
                 }
             }
-            System.out.println(answer);
+            sb.append(answer).append("\n");
         }
+        System.out.print(sb);
     }
 }
