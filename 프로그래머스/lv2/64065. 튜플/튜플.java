@@ -21,8 +21,8 @@ class Solution {
 
         tuple.sort((o1, o2) -> {
             if (o1.size() < o2.size())
-                return -1;
-            return 1;
+                return o1.size() - o2.size();
+            return o1.size() - o2.size();
         });
 
         for(List<Integer> list : tuple) {
@@ -33,7 +33,6 @@ class Solution {
         int idx = 0;
         for (Integer num : set) {
             answer[idx++] = num;
-            System.out.print(num + " ");
         }
 
         return answer;
